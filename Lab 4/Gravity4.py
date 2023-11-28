@@ -48,52 +48,52 @@
 #Combined: first apply A1Z26 cipher, then Caesar cipher with shift 3, then Atbash cipher
 
 def decrypt_caesar(text: str, shift: int) -> str:
-    inp = "" #Variable of the string of the decyphered text
-    for alph in text: #Loops through the input of the user
-        if alph.isalpha(): #Using ASCII format, checks to see if the character is alphabetical
-            if alph.islower(): #If the ASCII letter is lowercase
-                inp += chr((ord(alph)-shift-97) % 26 + 97) #Lowercase letters on ASCII code begin at 97, ord checks the code and we compute it to 0 where it will be modulated
-            if alph.isupper(): #If the ASCII letter is uppercase
-                inp += chr((ord(alph)-shift-65) % 26 + 65) #Uppercase letters on ASCII code begin at 65, ord checks the code and we compute it to 0 where it will be modulated
+    inp = ""
+    for alph in text:
+        if alph.isalpha():
+            if alph.islower():
+                inp += chr((ord(alph)-shift-97) % 26 + 97)
+            if alph.isupper():
+                inp += chr((ord(alph)-shift-65) % 26 + 65)
         else:
-            inp += alph #Adds a space where necessary
+            inp += alph
     return inp
 
 def decrypt_atbash(text: str) -> str:
-    inp = "" #Variable of the string of the decyphered text
-    for alph in text: #Loops through the input of the user
-        if alph.isalpha(): #Using ASCII format, checks to see if the character is alphabetical
-            if alph.islower(): #If the ASCII letter is lowercase
-                inp += chr((25-(ord(alph)-97) % 26) + 97) #Lowercase letters on ASCII code begin at 97, ord checks the code and we compute it to its inverse where it will be modulated
-            if alph.isupper(): #If the ASCII letter is uppercase
-                inp += chr((25-(ord(alph)-65) % 26) + 65) #Uppercase letters on ASCII code begin at 65, ord checks the code and we compute it to its inverse where it will be modulated
+    inp = ""
+    for alph in text:
+        if alph.isalpha():
+            if alph.islower():
+                inp += chr((25-(ord(alph)-97) % 26) + 97)
+            if alph.isupper():
+                inp += chr((25-(ord(alph)-65) % 26) + 65)
         else:
-            inp += alph #Adds a space where necessary
+            inp += alph
     return inp
 
 def decrypt_a1z26(text: str) -> str:
-    inp = "" #Variable of the string of the decyphered text
-    split = text.split() #Splits the text into num and "-"
-    for num in split: #Loops through the split
-        hyphen = num.split("-") #Splits the original split at each "-"
-        for digit in hyphen: #Loops through the new split
-            if digit.isnumeric(): #Checks to see if the digit is an int or space
-                inp += chr(int(digit) + 64) #Converts it to uppercase ASCII
-        inp += " " #Adds a space where necessary
+    inp = ""
+    split = text.split()
+    for num in split:
+        hyphen = num.split("-")
+        for digit in hyphen:
+            if digit.isnumeric():
+                inp += chr(int(digit) + 64)
+        inp += " "
     return inp
 
 def main() -> None:
     shift = 3
     text = input("Enter a text to decipher: ")
-    caesar = decrypt_caesar(text, shift) #Final run through of arguments for the caesar function
-    atbsh = decrypt_atbash(text) #Final run through of arguments for the atbash function
-    a1726 = decrypt_a1z26(text) #Final run through of arguments for the a1z26 function
-    combined1 = decrypt_atbash(decrypt_caesar(text,shift)) #first apply Caesar cipher with shift 3, then Atbash cipher
-    combined2 = decrypt_caesar(decrypt_atbash(text),shift) #first apply Atbash cipher, then Caesar cipher with shift 3
-    combined3 = decrypt_caesar(decrypt_a1z26(text),shift) #first apply A1Z26 cipher, then Caesar cipher with shift 3
-    combined4 = decrypt_atbash(decrypt_a1z26(text)) #first apply A1Z26 cipher, then Atbash cipher
-    combined5 = decrypt_caesar(decrypt_atbash(decrypt_a1z26(text)),shift) #first apply A1Z26 cipher, then Atbash cipher, then Caesar cipher with shift 3
-    combined6 = decrypt_atbash(decrypt_caesar(decrypt_a1z26(text),shift)) #first apply A1Z26 cipher, then Caesar cipher with shift 3, then Atbash cipher
+    caesar = decrypt_caesar(text, shift)
+    atbsh = decrypt_atbash(text)
+    a1726 = decrypt_a1z26(text)
+    combined1 = decrypt_atbash(decrypt_caesar(text,shift))
+    combined2 = decrypt_caesar(decrypt_atbash(text),shift)
+    combined3 = decrypt_caesar(decrypt_a1z26(text),shift)
+    combined4 = decrypt_atbash(decrypt_a1z26(text))
+    combined5 = decrypt_caesar(decrypt_atbash(decrypt_a1z26(text)),shift)
+    combined6 = decrypt_atbash(decrypt_caesar(decrypt_a1z26(text),shift))
     print("caesar: ",caesar)
     print("atbash: ",atbsh)
     print("a1726: ",a1726)

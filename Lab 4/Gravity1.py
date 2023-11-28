@@ -20,21 +20,21 @@
 #Implement the decrypt_caesar function that would decrypt a given message with the Caesar cipher.
 
 def decrypt_caesar(text: str, shift: int) -> str:
-    inp = "" #Variable of the string of the decyphered text
-    for alph in text: #Loops through the input of the user
-        if alph.isalpha(): #Using ASCII format, checks to see if the character is alphabetical
-            if alph.islower(): #If the ASCII letter is lowercase
-                inp += chr((ord(alph)-shift-97) % 26 + 97) #Lowercase letters on ASCII code begin at 97, ord checks the code and we compute it to 0 where it will be modulated
-            if alph.isupper(): #If the ASCII letter is uppercase
-                inp += chr((ord(alph)-shift-65) % 26 + 65) #Uppercase letters on ASCII code begin at 65, ord checks the code and we compute it to 0 where it will be modulated
+    inp = ""
+    for alph in text:
+        if alph.isalpha():
+            if alph.islower():
+                inp += chr((ord(alph)-shift-97) % 26 + 97)
+            if alph.isupper():
+                inp += chr((ord(alph)-shift-65) % 26 + 65)
         else:
-            inp += alph #Adds a space where necessary
+            inp += alph
     return inp
 
 def main() -> None:
-    shift = 3 #The shift to use
+    shift = 3
     text = input("Enter a text to decipher: ")
-    caesar = decrypt_caesar(text, shift) #Final run through of arguments for the caesar function
+    caesar = decrypt_caesar(text, shift)
     print("caesar: ",caesar)
 
 if __name__ == "__main__":
